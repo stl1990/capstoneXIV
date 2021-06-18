@@ -73,14 +73,7 @@ app.layout = html.Div([
                 id='twitter-visit',
             )
         ]),
-        html.Div([
-            html.Img(src="https://educowebmedia.blob.core.windows.net/educowebmedia/educospain/media/images/blog/guia-de-twitch-para-padres-destacada.jpg",
-                     style={"width": "100px"}),
-            html.H2(
-                id='twitch_visit',
-            )
-        ]),        
-    ], style={"columnCount": 5, 'textAlign': "center"}),
+    ], style={"columnCount": 4, 'textAlign': "center"}),
     html.H3('Total Visits by Month', style={"textAlign": "center"}),
     dcc.Graph(
         id='total-visit-line'
@@ -107,7 +100,6 @@ app.layout = html.Div([
     Output('facebook-visit', 'children'),
     Output('instagram-visit', 'children'),
     Output('twitter-visit', 'children'),
-    Output('twitch_visit', 'children'),
     Output('total-visit-line', 'figure'),
     Output('total-visit-social-networks-line', 'figure'),
     Output('world-map', 'figure'),
@@ -152,15 +144,6 @@ def update_figures(start_date_selected, end_date_selected, social_networks_selec
              (df.datetime >= start_date_selected) &
              (df.datetime <= end_date_selected)]
     ).shape[0]
-    
-    twitch_visit = (
-        df
-        .loc[(df.social_network == 'twitch') &
-             (df.social_network.isin(social_networks_selected)) &
-             (df.device.isin(devices_selected)) &
-             (df.datetime >= start_date_selected) &
-             (df.datetime <= end_date_selected)]
-    ).shape[0]    
 
     df_by_month = (
         df
